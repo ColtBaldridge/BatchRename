@@ -9,7 +9,10 @@ def reset(src, dst):
 def missed_files(file, error):
     pass
 
-directory = 'C:\\Users\\Field_Device\\git\\batch-rename\\documents'
+# This is the working directory.
+# Replace this with the directory where the documents are stored.
+directory = 'C:\\Users\\username\\git\\batch-rename\\documents'
+
 # Keep track of files with no title in the metadata.
 # Notify the user that they must manually edit these documents.
 changed_files = []
