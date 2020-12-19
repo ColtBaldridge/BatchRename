@@ -40,3 +40,13 @@ class Setup:
             return True
         else:
             return False
+
+    def install_modules(self):
+        '''
+        Required modules:
+            os
+            pathlib
+            shutil
+            PyPDF2
+        '''
+        pass
