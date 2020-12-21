@@ -2,24 +2,6 @@ import os
 from pathlib import Path
 from PyPDF2 import PdfFileReader
 
-def reset(src, dst):
-    # os.system('')
-    pass
-
-def missed_files(file, error):
-    pass
-
-# This is the working directory.
-# Replace this with the directory where the documents are stored.
-directory = 'C:\\Users\\username\\git\\batch-rename\\documents'
-
-# Keep track of files with no title in the metadata.
-# Notify the user that they must manually edit these documents.
-changed_files = []
-missed_files = []
-
-os.mkdir('missed-files')
-
 # Change the working directory to one with the files.
 os.chdir(directory)
 
