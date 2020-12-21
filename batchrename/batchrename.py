@@ -6,8 +6,10 @@ from PyPDF2 import PdfFileReader
 os.chdir(directory)
 
 for article in os.listdir():
+
     # filepath = os.path.join(directory, article)
     with open(article, 'rb') as f:
+
         # print(f'Selecting file: {article}')
         try:
             metadata = PdfFileReader(f).getDocumentInfo()
@@ -15,6 +17,7 @@ for article in os.listdir():
             print(f'An unknown error occured: {article}')
             missed_files.append(article)
             continue
+
         # A PDF's metadata may not include a title.
         # Record the incident and continue the loop.
         try:
@@ -26,6 +29,7 @@ for article in os.listdir():
         
         # Check if the title metadata exists.
         # If it does not, add it to the missed files list and move on.
+        
     if title == '' or None:
         print(f'Title metadata is blank: {article}')
         missed_files.append(article)
@@ -33,8 +37,10 @@ for article in os.listdir():
     else:
         # Create a file path for the actual PDF title.
         title += '.pdf'
+
         # Repalce colons with dashes for Windows file compatability
         title = title.replace(':', ' -')
+        
         # new_filepath = os.path.join(directory, metadata['/Title'] + '.pdf')
         os.rename(article, title)
         changed_files.append(title)
