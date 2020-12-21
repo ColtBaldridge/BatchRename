@@ -27,9 +27,8 @@ for article in os.listdir():
             missed_files.append(article)
             continue
         
-        # Check if the title metadata exists.
-        # If it does not, add it to the missed files list and move on.
-        
+    # Check if the title metadata exists.
+    #  If it does not, add it to the missed files list and move on.    
     if title == '' or None:
         print(f'Title metadata is blank: {article}')
         missed_files.append(article)
@@ -40,7 +39,7 @@ for article in os.listdir():
 
         # Repalce colons with dashes for Windows file compatability
         title = title.replace(':', ' -')
-        
+
         # new_filepath = os.path.join(directory, metadata['/Title'] + '.pdf')
         os.rename(article, title)
         changed_files.append(title)
