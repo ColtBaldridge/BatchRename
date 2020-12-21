@@ -35,8 +35,8 @@ class Setup:
     
     def verify(self, status, backup, missed):
         '''Verify all setup functions are complete.'''
-        if(os.is_dir(self.backup) == True and
-           os.is_dir(self.missed) == True):
+        if(os.path.exists(self.backup) == True and
+           os.path.exists(self.missed) == True):
             return True
         else:
             return False
