@@ -18,7 +18,7 @@ print('Enter the directory path to the target files.')
 ROOT = str(input('>>> '))
 
 # If the script ends up being a single file use this line instead.
-ROOT = os.path.realpath(__file__)
+ROOT = os.getcwd()
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
     missed = Directory(ROOT, 'Missed Files')
 
     # This exists solely to shut up the interpreter.
-    print(backup + missed)
+    print(backup + missed)os
 
 
 if __name__ == "__main__":
