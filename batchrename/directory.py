@@ -1,6 +1,4 @@
-from os import mkdir
-from os import listdir
-from os import path
+import os
 from shutil import rmtree
 
 
@@ -8,28 +6,39 @@ class Directory:
 
     def __init__(self, root, directory):
         '''Create a directory at the given path.'''
-        self.path = str(path.join(root, directory))
+        self.path = os.path.join(root, directory)
+        self.name = directory
         self.files = []
+        self.exceptions = []
+        
+        self.__create()
 
-        self.__create(self.path)
-
-    def __create(self, path):
+    def __create(self):
         '''Use this only if something has gone wrong.'''
-        if path.exists(path) == False:
-            mkdir(path)
+        if not os.path.exists(self.name):
+            os.mkdir(self.name)
         else:
-            print(f'A folder named {path.basename(path)} already exists.')
+            print(f'Found existing folder {self.name}.')
+    
+    def __get_extension(self, file):
+        # Look into implementing str.rindex() for files with periods in their title.
+        return file[file.index('.') + 1:]
 
-    def delete(self, path):
+    def delete(self):
         '''Delete the given directory.'''
-        rmtree(path)
+        rmtree(self.path)
 
     # Perhaps this should go in the main script.
-    def contents(self, path, format=None):
-        for entry in os.listidr(self.path):
-            if path.isdir(entry):
-                continue
-            else:    
-                if entry[entry.index('.') + 1:] == str(format):
-                    self.files.append(entry)
-        
+    def contents(self, format=None):
+        for entry in os.listdir(self.name):
+            if not os.path.isdir(os.path.join(self.path, entry)):
+                # print(f'Fetching file exention of {entry}')
+                try:
+                    if self.__get_extension(entry) == str(format):
+                        self.files.append(entry)
+                    else:
+                        self.exceptions.append(entry)
+                except:
+                    print(f'\nSubstring not found for {entry} (index: {os.listdir(self.name).index(entry)})')
+            else:
+                self.exceptions.append(entry)
