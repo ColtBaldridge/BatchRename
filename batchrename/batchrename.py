@@ -5,6 +5,7 @@ from PyPDF2 import PdfFileReader
 # Change the working directory to one with the files.
 os.chdir(directory)
 
+
 for article in os.listdir():
 
     # filepath = os.path.join(directory, article)

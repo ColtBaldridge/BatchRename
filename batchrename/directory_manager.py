@@ -1,6 +1,6 @@
 import os
 # from pathlib import Path
-from shutil
+from shutil import rmtree
 
 
 # This is the program's install location.
