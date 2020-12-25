@@ -7,28 +7,6 @@ from shutil import copy2
 
 class Directory:
 
-
-    class File:
-        
-
-        def __init__(self, name, path):
-            self.name = name
-            self.extension name[name.rindex('.') + 1:]
-            self.metadata = {}
-            self.path = path
-
-        def scrape(self):
-            with open(self.name, 'rb') as f:
-                try:
-                    self.metadata = PdfFileReader(f).getDocumentInfo()
-                except:
-                    pass
-                    # Either use move() method or shutil.copy2()
-        
-        def format(self):
-            self.name.replace(':', ' -')
-
-
     def __init__(self, root, name):
         self.name = name
         self.path = path.listdir(root, name)
@@ -50,3 +28,24 @@ class Directory:
     def load_queue(self):
         for entry in scandir():
             if entry.is_file:
+
+
+class File:
+    
+
+    def __init__(self, name, path):
+        self.name = name
+        self.extension name[name.rindex('.') + 1:]
+        self.metadata = {}
+        self.path = path
+
+    def scrape(self):
+        with open(self.name, 'rb') as f:
+            try:
+                self.metadata = PdfFileReader(f).getDocumentInfo()
+            except:
+                pass
+                # Either use move() method or shutil.copy2()
+    
+    def format(self):
+        self.name.replace(':', ' -')
