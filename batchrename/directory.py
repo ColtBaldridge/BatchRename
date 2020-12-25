@@ -3,7 +3,7 @@ from shutil import rmtree
 
 
 class Directory:
-
+    
     def __init__(self, root, directory):
         '''Create a directory at the given path.'''
         self.path = os.path.join(root, directory)
@@ -20,7 +20,7 @@ class Directory:
         else:
             print(f'Found existing folder {self.name}.')
     
-    def __get_extension(self, file):
+    def __get_extension(self, file): 
         # Look into implementing str.rindex() for files with periods in their title.
         return file[file.index('.') + 1:]
 
