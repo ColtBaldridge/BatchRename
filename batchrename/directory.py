@@ -7,27 +7,24 @@ from shutil import copy2
 
 class Directory:
 
+
+
     def __init__(self, root, name):
         self.name = name
         self.path = path.listdir(root, name)
-        self.queue = []
 
         self.__create()
 
     def __create(self):
-    '''Use this only if something has gone wrong.'''
-    if not os.path.exists(self.name):
-        os.mkdir(self.name)
-    else:
-        print(f'Found existing folder {self.name}.')
+        '''Use this only if something has gone wrong.'''
+        if not os.path.exists(self.name):
+            os.mkdir(self.name)
+        else:
+            print(f'Found existing folder {self.name}.')
 
     def delete(self):
         '''Delete the given directory.'''
         rmtree(self.path)
-
-    def load_queue(self):
-        for entry in scandir():
-            if entry.is_file:
 
 
 class File:
