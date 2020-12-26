@@ -1,6 +1,4 @@
 from os import path
-from os import listdir
-from os import scandir
 from PyDPF2 import PdfFileReader
 from shutil import copy2
 
@@ -22,6 +20,9 @@ class Directory:
         else:
             print(f'Found existing folder {self.name}.')
 
+    def __exists(self):
+        return os.path.isdir(self.name)
+
     def delete(self):
         '''Delete the given directory.'''
         rmtree(self.path)
@@ -32,7 +33,8 @@ class File:
 
     def __init__(self, name, path):
         self.name = name
-        self.extension name[name.rindex('.') + 1:]
+        self.extension = 
+        name[name.rindex('.') + 1:]
         self.metadata = {}
         self.path = path
 
@@ -46,3 +48,21 @@ class File:
     
     def format(self):
         self.name.replace(':', ' -')
+
+    def scrape(self):
+        with open(self.name, 'rb') as f:
+
+        try:
+            self.metadata = PdfFileReader(f).getDocumentInfo()
+        except:
+            print(f'Metadata import error [SCRAPE]: {self.name}')
+
+    def rename(self, backup_path):
+        try:
+            os.rename(self.name, self.metadata['/Title'])
+        except KeyError:
+            print(f'Metadata import error [RENAME]: {self.name}')
+            move(backup_path)
+
+    def move(self, dst_path):
+        shutil.copy2(self.path, backup_path)
