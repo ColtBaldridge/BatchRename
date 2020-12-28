@@ -25,16 +25,15 @@ class File:
                 # Reassign self.path to the file's path in Backup.
                 # Delete original file at the original path.
     
-    def __format(self name):
+    def __format(self, name):
         return name.replace(':', ' -')
 
     def scrape(self):
         with open(self.name, 'rb') as f:
-
-        try:
-            self.metadata = PdfFileReader(f).getDocumentInfo()
-        except:
-            print(f'Metadata import error [SCRAPE]: {self.name}')
+            try:
+                self.metadata = PdfFileReader(f).getDocumentInfo()
+            except:
+                print(f'Metadata import error [SCRAPE]: {self.name}')
 
     def rename(self, backup_path):
         try:
@@ -59,15 +58,16 @@ def main():
     for entry in os.scandir():
         if entry.is_file():
             # objectFile.scrape()
+            pass
 
 
     # The principal algorithm scrapes each File object here.
-    while q.empty():
+    while not q.empty():
         active_file = q.get()
-            try:
-                active_file.rename(backup.path)
-            except:
-                shutil.copy2(active_file.name, backup.path)        
+        try:
+            active_file.rename(backup.path)
+        except:
+            shutil.copy2(active_file.name, backup.path)        
         pass
     
     
