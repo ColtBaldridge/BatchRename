@@ -39,7 +39,7 @@ def main():
 
     ROOT = os.getcwd()
     q = Queue()
-    backup = directory.Directory(ROOT, 'Backup Files')
+    os.mkdir('Backup Files')
 
     # Implement some list iterator for file contents
 
@@ -55,7 +55,7 @@ def main():
         try:
             active_file.rename(backup.path)
         except:
-            shutil.copy2(active_file.name, backup.path)        
+            shutil.copy2(active_file.name, 'Backup Files')        
         pass
     
     
