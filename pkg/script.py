@@ -72,7 +72,7 @@ def main():
     q = Queue()
 
     # Before touching anything, first back up everything.
-    os.mkdir('Backup Files')
+    backup = Entry('Backup Files', ROOT)
 
     # Implement some list iterator for file contents
 
