@@ -20,7 +20,11 @@ class Entry:
     
     def __create(self):
         '''Create a new directory with the same name as the object name. '''
-        os.mkdir(self.name)
+        if not os.path.exists(self.name):
+            try:
+                os.mkdir(self.name)
+            except FileExistsError:
+                print(f'Found existing folder: {self.name}')
 
 
     def __move(self, dst_path):
@@ -29,13 +33,15 @@ class Entry:
 
 class File(Entry):
 
-        def __init__(self, name):
+        def __init__(self, name, path):
             '''Initialize an entry which is a file.
 
             Attributes:
             extension -- represents the file's format extension
             metadata -- dictionary which holds the file's metadata
             '''
+
+            super().__init__(self, name, path)
             self.extension = name[name.rindex('.') + 1:]
             self.metadata = {}
 
