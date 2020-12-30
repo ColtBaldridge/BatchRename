@@ -83,8 +83,6 @@ def main():
     # Create a folder to hold files which could not be edited.
     missed = Entry('Missed Files', ROOT)
 
-    # Implement some list iterator for file contents
-
     # With everything set up, scan the active directory for PDfs.
     for entry in os.scandir():
         # Make sure the entry is in fact both a file and a PDF.
@@ -92,8 +90,8 @@ def main():
             shutil.copy2(entry.name, backup.path)
             # Create a File object to represent the PDF and enqueue.
             q.put(File(entry.name, entry.path))
-            pass
-
+        else:
+            continue
 
     # The principal algorithm scrapes each File object here.
     while not q.empty():
@@ -102,10 +100,8 @@ def main():
         try:
             active_file.rename(backup.path)
         except:
-            shutil.copy2(active_file.name, 'Backup Files')        
-        pass
-    
-    
+            shutil.move(active_file.path, missed.path)
+
 
 if __name__ == "__main__":
     main()
