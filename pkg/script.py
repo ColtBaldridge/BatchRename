@@ -86,7 +86,8 @@ def main():
     # With everything set up, scan the active directory for PDfs.
     for entry in os.scandir():
         # Make sure the entry is in fact both a file and a PDF.
-        if entry.is_file():
+        if entry.is_file() and entry.name.endswith('.pdf'):
+            shutil.copy2(entry.name, backup.path)
             # Create a File object to represent the PDF and enqueue.
             q.put(File(entry.name, entry.path))
             pass
