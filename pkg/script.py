@@ -57,6 +57,7 @@ class File(Entry):
                     self.metadata = PdfFileReader(f).getDocumentInfo()
                 except:
                     print(f'Metadata import error [SCRAPE]: {self.name}')
+                f.close()
 
         def rename(self, backup_path):
             '''Replace the original name with scraped metadata.'''
