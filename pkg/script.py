@@ -14,7 +14,7 @@ class Entry:
         path -- the real file path, starting from the working directory
         '''
         self.name = name
-        self.path = path
+        self.path = os.path.join(path, name)
 
         self.__create()
     
