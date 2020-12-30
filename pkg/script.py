@@ -30,6 +30,7 @@ class Entry:
     def __move(self, dst_path):
         '''Move the object to a new directory.'''
         shutil.copy2(self.path, dst_path)
+        self.path = dst_path
 
 class File(Entry):
 
