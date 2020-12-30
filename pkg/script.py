@@ -65,7 +65,7 @@ class File(Entry):
                 os.rename(self.name, formatted_name)
             except KeyError:
                 print(f'Metadata import error [RENAME]: {self.name}')
-                self.__move(backup_path)
+                # self.__move(backup_path)
 
 def main():
 
