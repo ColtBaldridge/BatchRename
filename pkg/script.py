@@ -78,8 +78,10 @@ def main():
     # The queue stores the target files for editing.
     q = Queue()
 
-    # Before touching anything, first back up everything.
+    # Create a folder for holding backups.
     backup = Entry('Backup Files', ROOT)
+    # Create a folder to hold files which could not be edited.
+    missed = Entry('Missed Files', ROOT)
 
     # Implement some list iterator for file contents
 
