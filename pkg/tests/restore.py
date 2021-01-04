@@ -12,12 +12,6 @@
 from pathlib import Path
 import os
 import shutil
-from os import getcwd
-from os import mkdir
-from os import path
-from os import scandir
-from shutil import copytree
-from shutil import rmtree
 import time
 
 
