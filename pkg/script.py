@@ -1,4 +1,5 @@
 import os
+from PyPDF2 import PdfFileReader
 from queue import Queue
 import shutil
 
