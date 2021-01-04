@@ -105,9 +105,9 @@ def main():
     while not q.empty():
         active_file = q.get()
         active_file.scrape()
-        try:
-            active_file.rename(backup.path)
-        except:
+        if active_file.title_exists():
+                active_file.rename(backup.path)
+        else:
             shutil.move(active_file.path, missed.path)
 
 
