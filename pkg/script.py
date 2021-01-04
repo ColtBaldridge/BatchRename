@@ -68,6 +68,12 @@ class File(Entry):
                 print(f'Metadata import error [RENAME]: {self.name}')
                 # self.__move(backup_path)
 
+        def title_exists(self):
+            if '/Title' not in self.metadata or self.metadata['/Title'] == '':
+                return False
+            else:
+                return True
+
 def main():
 
     # First, create some basic data required by the script:
