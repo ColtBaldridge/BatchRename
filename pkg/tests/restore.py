@@ -10,6 +10,8 @@
 
 
 from pathlib import Path
+import os
+import shutil
 from os import getcwd
 from os import mkdir
 from os import path
@@ -19,7 +21,7 @@ from shutil import rmtree
 import time
 
 
-ROOT = Path(getcwd())
+ROOT = Path(os.getcwd())
 
 
 def main():
@@ -28,14 +30,14 @@ def main():
     production = 'reading-list'
     backup = 'reading-list-backup'
 
-    # Lambdas
-    verify_contents = lambda src, dst : scandir(src) == scandir(dst)
-
     print('Restoring PDF directory from the backup...')
-    rmtree(production)
-    copytree(backup, production)
+    shutil.rmtree(production)
+    shutil.copytree(backup, production)
 
     time.sleep(0.5)
+
+    # Lambdas
+    verify_contents = lambda src, dst : os.scandir(src) == os.scandir(dst)
 
     print('Checking the restoration validity...', end='')
     if verify_contents(backup, production):
