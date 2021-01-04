@@ -20,7 +20,6 @@ ROOT = Path(os.getcwd())
 
 def main():
 
-    # Constants
     production = 'reading-list'
     backup = 'reading-list-backup'
 
@@ -31,7 +30,6 @@ def main():
 
     time.sleep(0.5)
 
-    # Lambdas
     verify_contents = lambda src, dst : os.scandir(src) == os.scandir(dst)
 
     print('Checking the restoration validity...', end='')
