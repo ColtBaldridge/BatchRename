@@ -24,8 +24,9 @@ def main():
     production = 'reading-list'
     backup = 'reading-list-backup'
 
-    print('Restoring PDF directory from the backup...')
+    print(f'Removing all contents from {production}')
     shutil.rmtree(production)
+    print(f'Restoring {production} from backup...')
     shutil.copytree(backup, production)
 
     time.sleep(0.5)
