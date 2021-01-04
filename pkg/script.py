@@ -51,15 +51,6 @@ class File(Entry):
             '''Replace characters unusable in the file system.'''
             return name.replace(':', ' -')
 
-        def scrape(self):
-            '''Extract PDF metadata for storage.'''
-            with open(self.name, 'rb') as f:
-                try:
-                    self.metadata = PdfFileReader(f).getDocumentInfo()
-                except:
-                    print(f'Metadata import error [SCRAPE]: {self.name}')
-                f.close()
-
         def rename(self, backup_path):
             '''Replace the original name with scraped metadata.'''
             try:
@@ -68,6 +59,15 @@ class File(Entry):
             except KeyError:
                 print(f'Metadata import error [RENAME]: {self.name}')
                 # self.__move(backup_path)
+
+        def scrape(self):
+            '''Extract PDF metadata for storage.'''
+            with open(self.name, 'rb') as f:
+                try:
+                    self.metadata = PdfFileReader(f).getDocumentInfo()
+                except:
+                    print(f'Metadata import error [SCRAPE]: {self.name}')
+                f.close()
 
         def title_exists(self):
             if '/Title' not in self.metadata or self.metadata['/Title'] == '':
