@@ -42,11 +42,6 @@ def main():
         print('Success!')
     else:
         print('Coppy Error')
-        # print('Initiating scan...')
-        # 
-        # time.sleep(0.5)
-        # 
-        # for         
 
 
 if ROOT.name == 'pkg' and __name__ == '__main__':
