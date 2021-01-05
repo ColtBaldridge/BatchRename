@@ -70,6 +70,7 @@ class File(Entry):
                 f.close()
 
         def title_exists(self):
+            '''Check if File.metadata['/Title'] exists and is not empty.'''
             if '/Title' not in self.metadata or self.metadata['/Title'] == '':
                 return False
             else:
