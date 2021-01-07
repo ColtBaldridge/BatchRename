@@ -49,7 +49,7 @@ class File(Entry):
 
         def __format(self, name):
             '''Replace characters unusable in the file system.'''
-            return name.replace(':', ' -')
+            self.metadata['/Title'] = self.metadata['/Title'].replace(':', ' -')
 
         def rename(self, backup_path):
             '''Replace the original name with scraped metadata.'''
@@ -106,6 +106,7 @@ def main():
     while not q.empty():
         active_file = q.get()
         active_file.scrape()
+        
         if active_file.title_exists():
                 active_file.rename(backup.path)
         else:
