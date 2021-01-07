@@ -57,7 +57,6 @@ class File(Entry):
                 os.rename(self.name, self.metadata['/Title'])
             except KeyError:
                 print(f'Metadata import error [RENAME]: {self.name}')
-                # self.__move(backup_path)
 
         def scrape(self):
             '''Extract PDF metadata for storage.'''
