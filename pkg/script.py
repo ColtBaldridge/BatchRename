@@ -47,7 +47,7 @@ class File(Entry):
             self.extension = name[name.rindex('.') + 1:]
             self.metadata = {}
 
-        def __format(self, name):
+        def format(self):
             '''Replace characters unusable in the file system.'''
             self.metadata['/Title'] = self.metadata['/Title'].replace(':', ' -')
 
@@ -106,9 +106,14 @@ def main():
         active_file = q.get()
         active_file.scrape()
         
-        if active_file.title_exists():
-                active_file.rename(backup.path)
-        else:
+        if not active_file.title_exists():
+            shutil.move(active_file.path, missed.path)
+            continue
+
+        active_file.format()
+        try:
+            active_file.rename()
+        except:
             shutil.move(active_file.path, missed.path)
 
 
