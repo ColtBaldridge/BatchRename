@@ -1,43 +1,20 @@
-# This script resets the repository through the following:
-# 
-# 1) Delete reading-list
-# 2) Make a copy of reading-list-backup
-# 3) Rename reading-list-backup (copy) to reading-list
-# 
-# Alternatively:
-# 1) Delete all enetries at reading-list/*
-# 2) copy reading-list-backup reading-list
-
-
+from os import mkdir
 from pathlib import Path
-import os
-import shutil
-import time
-
-
-ROOT = Path(os.getcwd())
+from shutil import rmtree
+from shutil import copy2
+from shutil import copytree
 
 
 def main():
+    
+    # Define essential paths`
+    lab = Path('tests/lab')
+    backup = Path('tests/docs')
 
-    production = 'reading-list'
-    backup = 'reading-list-backup'
+    if lab.exists():
+        rmtree(lab)
+    copytree(backup, lab)
+    copy2('script.py', lab)
 
-    print(f'Removing all contents from {production}')
-    shutil.rmtree(production)
-    print(f'Restoring {production} from backup...')
-    shutil.copytree(backup, production)
-
-    time.sleep(0.5)
-
-    verify_contents = lambda src, dst : os.scandir(src) == os.scandir(dst)
-
-    print('Checking the restoration validity...', end='')
-    if verify_contents(backup, production):
-        print('Success!')
-    else:
-        print('Coppy Error')
-
-
-if ROOT.name == 'pkg' and __name__ == '__main__':
+if __name__ == '__main__':
     main()
