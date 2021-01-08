@@ -43,7 +43,8 @@ class File(Entry):
             metadata -- dictionary which holds the file's metadata
             '''
 
-            super().__init__(self, name, path)
+            Entry.__init__(self, name, path)
+            self.path = path
             self.extension = name[name.rindex('.') + 1:]
             self.metadata = {}
 
@@ -94,9 +95,10 @@ def main():
     for entry in os.scandir():
         # Make sure the entry is in fact both a file and a PDF.
         if entry.is_file() and entry.name.endswith('.pdf'):
+            path = os.path.join(ROOT, entry.path[2:])
             shutil.copy2(entry.name, backup.path)
             # Create a File object to represent the PDF and enqueue.
-            q.put(File(entry.name, entry.path))
+            q.put(File(entry.name, path))
         else:
             continue
 
