@@ -6,6 +6,12 @@ from shutil import copytree
 from time import sleep
 
 
+def status(message):
+    '''Status notification system.'''
+    print(f'{message}...')
+    sleep(1.0)
+
+
 def main():
     
     # Define essential paths.
@@ -13,17 +19,13 @@ def main():
     backup = Path('test/docs')
 
     # Remove test/lab and then create a new copy.
-    print('Detecting test/lab', end='')
-    sleep(0.5)
+    status('Cleaning test/lab/')
     if lab.exists():
         rmtree(lab)
-    print('Done.')
 
     # Create a new lab folder.
-    print('Restoring from backup...', end='')
+    status('Restoring from backup')
     copytree(backup, lab)
-    print('Done.')
-    sleep(0.5)
 
     # Deploy the latest version of script.py to the lab.
     copy2('script.py', lab)
