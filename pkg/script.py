@@ -27,7 +27,6 @@ class Entry:
             except FileExistsError:
                 print(f'Found existing folder: {self.name}')
 
-
     def __move(self, dst_path):
         '''Move the object to a new directory.'''
         shutil.copy2(self.path, dst_path)
@@ -63,7 +62,9 @@ class File(Entry):
             '''Extract PDF metadata for storage.'''
             with open(self.name, 'rb') as f:
                 try:
-                    self.metadata = PdfFileReader(f).getDocumentInfo()
+                    raw_meta = PdfFileReader(f).getDocumentInfo()
+                    for key in raw_meta:
+                        self.metadata[key] = raw_meta[key]
                 except:
                     print(f'Metadata import error [SCRAPE]: {self.name}')
                 f.close()
