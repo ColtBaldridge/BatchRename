@@ -1,7 +1,13 @@
-import os
+from os import getcwd
+from os import mkdir
+from os import rename
+from os import scandir
+from os.path import exists
+from os.path import join
 from PyPDF2 import PdfFileReader
 from queue import Queue
-import shutil
+from shutil import copy2
+from shutil import move
 
 
 
@@ -15,21 +21,21 @@ class Entry:
         path -- the real file path, starting from the working directory
         '''
         self.name = name
-        self.path = os.path.join(path, name)
+        self.path = join(path, name)
 
         self.__create()
     
     def __create(self):
         '''Create a new directory with the same name as the object name. '''
-        if not os.path.exists(self.name):
+        if not exists(self.name):
             try:
-                os.mkdir(self.name)
+                mkdir(self.name)
             except FileExistsError:
                 print(f'Found existing folder: {self.name}')
 
     def __move(self, dst_path):
         '''Move the object to a new directory.'''
-        shutil.copy2(self.path, dst_path)
+        copy2(self.path, dst_path)
         self.path = dst_path
 
 class File(Entry):
@@ -54,7 +60,7 @@ class File(Entry):
         def rename(self, backup_path):
             '''Replace the original name with scraped metadata.'''
             try:
-                os.rename(self.name, self.metadata['/Title'])
+                rename(self.name, self.metadata['/Title'])
             except KeyError:
                 print(f'Metadata import error [RENAME]: {self.name}')
 
@@ -82,7 +88,7 @@ def main():
     
     # ROOT represents the working directory. This is passed to Entry
     #  objects to establish object paths.
-    ROOT = os.getcwd()
+    ROOT = getcwd()
     
     # The queue stores the target files for editing.
     q = Queue()
@@ -93,11 +99,11 @@ def main():
     missed = Entry('Missed Files', ROOT)
 
     # With everything set up, scan the active directory for PDfs.
-    for entry in os.scandir():
+    for entry in scandir():
         # Make sure the entry is in fact both a file and a PDF.
         if entry.is_file() and entry.name.endswith('.pdf'):
-            path = os.path.join(ROOT, entry.path[2:])
-            shutil.copy2(entry.name, backup.path)
+            path = join(ROOT, entry.path[2:])
+            copy2(entry.name, backup.path)
             # Create a File object to represent the PDF and enqueue.
             q.put(File(entry.name, path))
         else:
@@ -109,14 +115,14 @@ def main():
         active_file.scrape()
         
         if not active_file.title_exists():
-            shutil.move(active_file.path, missed.path)
+            move(active_file.path, missed.path)
             continue
 
         active_file.format()
         try:
             active_file.rename()
         except:
-            shutil.move(active_file.path, missed.path)
+            move(active_file.path, missed.path)
 
 
 if __name__ == "__main__":
