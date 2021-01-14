@@ -60,7 +60,8 @@ class File(Entry):
         def rename(self, backup_path):
             '''Replace the original name with scraped metadata.'''
             try:
-                rename(self.name, self.metadata['/Title'])
+                new_title = self.metadata['/Title'] + '.pdf'
+                rename(self.name, new_title)
             except KeyError:
                 print(f'Metadata import error [RENAME]: {self.name}')
 
@@ -120,7 +121,7 @@ def main():
 
         active_file.format()
         try:
-            active_file.rename()
+            active_file.rename(backup.path)
         except:
             move(active_file.path, missed.path)
 
