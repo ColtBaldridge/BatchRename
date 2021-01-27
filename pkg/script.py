@@ -10,7 +10,6 @@ from shutil import copy2
 from shutil import move
 
 
-
 class Entry:
 
     def __init__(self, name, path):
@@ -85,27 +84,17 @@ class File(Entry):
 
 def main():
 
-    # First, create some basic data required by the script:
-    
-    # ROOT represents the working directory. This is passed to Entry
-    #  objects to establish object paths.
     ROOT = getcwd()
-    
-    # The queue stores the target files for editing.
     q = Queue()
 
-    # Create a folder for holding backups.
+    # Create folders required by the script.
     backup = Entry('Backup Files', ROOT)
-    # Create a folder to hold files which could not be edited.
     missed = Entry('Missed Files', ROOT)
 
-    # With everything set up, scan the active directory for PDfs.
     for entry in scandir():
-        # Make sure the entry is in fact both a file and a PDF.
         if entry.is_file() and entry.name.endswith('.pdf'):
             path = join(ROOT, entry.path[2:])
             copy2(entry.name, backup.path)
-            # Create a File object to represent the PDF and enqueue.
             q.put(File(entry.name, path))
         else:
             continue
