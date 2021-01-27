@@ -49,7 +49,6 @@ class File(Entry):
 
             Entry.__init__(self, name, path)
             self.path = path
-            self.extension = name[name.rindex('.') + 1:]
             self.metadata = {}
 
         def format(self):
